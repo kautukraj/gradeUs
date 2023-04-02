@@ -1,15 +1,12 @@
-package entity;
+package com.majorproject.gradeusbackend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import utils.Role;
+import com.majorproject.gradeusbackend.utils.Role;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.Collection;
 import java.util.List;
 

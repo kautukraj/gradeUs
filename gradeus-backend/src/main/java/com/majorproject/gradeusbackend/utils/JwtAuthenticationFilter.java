@@ -1,4 +1,4 @@
-package utils;
+package com.majorproject.gradeusbackend.utils;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import service.JwtService;
-import service.UserDetailsServiceImpl;
+import com.majorproject.gradeusbackend.service.JwtService;
+import com.majorproject.gradeusbackend.service.UserDetailsServiceImpl;
 
 import java.io.IOException;
 

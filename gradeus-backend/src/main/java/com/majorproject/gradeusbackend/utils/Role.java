@@ -1,4 +1,4 @@
-package utils;
+package com.majorproject.gradeusbackend.utils;
 
 public enum Role {
 

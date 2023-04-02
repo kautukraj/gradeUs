@@ -1,4 +1,4 @@
-package service;
+package com.majorproject.gradeusbackend.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

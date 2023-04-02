@@ -1,7 +1,6 @@
-package config;
+package com.majorproject.gradeusbackend.config;
 
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import utils.JwtAuthenticationFilter;
+import com.majorproject.gradeusbackend.utils.JwtAuthenticationFilter;
 
 import java.util.Arrays;
 
@@ -37,10 +36,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**")
                 .permitAll()
-//                .requestMatchers("/instructor/**")
-//                .hasRole("INSTRUCTOR")
-//                .requestMatchers("/student/**")
-//                .hasRole("STUDENT")
+                .requestMatchers("/instructor/**")
+                .hasRole("INSTRUCTOR")
+                .requestMatchers("/student/**")
+                .hasRole("STUDENT")
                 .anyRequest()
                 .authenticated()
                 .and()

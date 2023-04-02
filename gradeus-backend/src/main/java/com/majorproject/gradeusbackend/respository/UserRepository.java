@@ -1,6 +1,6 @@
-package respository;
+package com.majorproject.gradeusbackend.respository;
 
-import entity.User;
+import com.majorproject.gradeusbackend.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
