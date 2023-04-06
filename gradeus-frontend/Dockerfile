@@ -1,9 +1,13 @@
-FROM node:18.13.0
+FROM node:18.13.0 as builder
 WORKDIR /app
 COPY . . 
-
 RUN npm install
-# RUN npm run build --prod
+EXPOSE 4200
+RUN npm run build --prod
 
-CMD ["npm", "start"]
-# CMD ["npm", "run", "k8"]
+FROM nginx:latest
+COPY --from=builder /app/dist/gradeus-frontend /usr/share/nginx/html
+COPY nginx/nginx.conf /etc/nginx/conf/default.conf
+
+EXPOSE 80
+CMD nginx -g "daemon off;"
