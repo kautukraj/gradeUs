@@ -3,6 +3,7 @@ WORKDIR /app
 COPY . . 
 
 RUN npm install
-RUN npm run build --prod
+# RUN npm run build --prod
 
 CMD ["npm", "start"]
+# CMD ["npm", "run", "k8"]

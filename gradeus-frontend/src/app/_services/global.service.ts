@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GlobalService {
-  rootUrl: string = 'http://127.0.0.1:8500';
+  rootUrl: string = environment.rootUrl;
   recordList: any[] = [];
   constructor() {}
 
