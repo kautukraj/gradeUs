@@ -7,6 +7,8 @@ import com.majorproject.gradeusbackend.model.LoginRequest;
 import com.majorproject.gradeusbackend.model.RegisterRequest;
 import com.majorproject.gradeusbackend.respository.UserRepository;
 import com.majorproject.gradeusbackend.utils.Role;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class AuthService {
     @Autowired
     private UserRepository userRepository;
@@ -26,6 +29,7 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
 
     public AuthResponse register(RegisterRequest request) {
+        log.info("Register function is called.");
         var user = User.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
@@ -42,11 +46,13 @@ public class AuthService {
                     .token(jwtToken)
                     .build();
         } catch (Exception exception) {
+            log.info("Duplicate user is found.");
             return AuthResponse.builder().message("Duplicate User Found!").build();
         }
     }
 
     public AuthResponse login(LoginRequest request) {
+        log.info("Login function is called.");
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -57,6 +63,8 @@ public class AuthService {
                 .orElseThrow();
         User userObject = (User)user;
         String jwtToken = jwtService.generateToken(user);
+
+        log.info("Sending the jwt token back");
         return AuthResponse.builder()
                 .token(jwtToken)
                 .username(userObject.getUsername())
