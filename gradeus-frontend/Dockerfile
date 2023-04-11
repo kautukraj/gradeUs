@@ -7,7 +7,8 @@ RUN npm run build --prod
 
 FROM nginx:latest
 COPY --from=builder /app/dist/gradeus-frontend /usr/share/nginx/html
-COPY nginx/nginx.conf /etc/nginx/conf/default.conf
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/conf.d
 
 EXPOSE 80
 CMD nginx -g "daemon off;"
