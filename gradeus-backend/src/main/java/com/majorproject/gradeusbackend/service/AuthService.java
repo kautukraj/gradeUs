@@ -1,14 +1,12 @@
 package com.majorproject.gradeusbackend.service;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.majorproject.gradeusbackend.entity.User;
 import com.majorproject.gradeusbackend.model.AuthResponse;
 import com.majorproject.gradeusbackend.model.LoginRequest;
 import com.majorproject.gradeusbackend.model.RegisterRequest;
-import com.majorproject.gradeusbackend.respository.UserRepository;
+import com.majorproject.gradeusbackend.repository.UserRepository;
 import com.majorproject.gradeusbackend.utils.Role;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
