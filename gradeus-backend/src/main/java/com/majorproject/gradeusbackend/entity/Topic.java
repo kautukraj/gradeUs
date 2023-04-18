@@ -18,16 +18,16 @@ import lombok.NoArgsConstructor;
 public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long topic_id;
+    private Long topicId;
 
     @Column(nullable = false)
     private String name;
 
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "class_id", nullable = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "class_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "classId")
     @JsonIdentityReference(alwaysAsId = true)
     private Class classObj;
 }

@@ -21,17 +21,17 @@ public class StudentGroupMap {
     @EmbeddedId
     private StudentGroupMapId studentGroupMapId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @MapsId("studentId")
     @JoinColumn(name = "student_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     private User student;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @MapsId("groupId")
     @JoinColumn(name = "group_id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "group_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "groupId")
     @JsonIdentityReference(alwaysAsId = true)
     private ClassGroup group;
 }

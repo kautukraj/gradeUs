@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class AuthResponse {
 
+    private Long id;
     private String token;
     private String username;
     private String role;

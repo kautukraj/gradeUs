@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long class_id;
+    private Long classId;
 
     @Column(nullable = false)
     private String name;

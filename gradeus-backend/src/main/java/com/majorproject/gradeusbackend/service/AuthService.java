@@ -64,6 +64,7 @@ public class AuthService {
 
         log.info("Sending the jwt token back");
         return AuthResponse.builder()
+                .id(userObject.getId())
                 .token(jwtToken)
                 .username(userObject.getUsername())
                 .email(userObject.getEmail())

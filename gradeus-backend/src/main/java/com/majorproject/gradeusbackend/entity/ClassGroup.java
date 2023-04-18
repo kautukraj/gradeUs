@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class ClassGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long class_group_id;
+    private Long classGroupId;
 
     @Column(nullable = false)
     private String name;
@@ -28,7 +28,7 @@ public class ClassGroup {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "class_id", nullable = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "class_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "classId")
     @JsonIdentityReference(alwaysAsId = true)
     private Class classObj;
 }
