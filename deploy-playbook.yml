@@ -1,0 +1,27 @@
+---
+- name: Deployment on kubernetes cluster
+  hosts: server
+  become: yes
+  tasks:
+    # - name: Start docker service
+    #   service:
+    #     name: docker
+    #     state: started
+
+    # - name: Copy the script for interacting with application
+    #   copy: src=runApp.sh dest=/home/ubuntu-server
+
+    # - name: Copy the script for getting logs
+    #   copy: src=sendLogs.sh dest=/home/ubuntu-server
+
+    # - name: Stop and remove the current container and delete all images
+    #   script: ./clearScript.sh
+
+    # - name: Pull calculator image
+    #   docker_image:
+    #     name: lovyparhar/java-calculator-devops:latest
+    #     source: pull
+    #     force_source: yes
+
+    # - name: Run the new docker container
+    #   shell: docker run -d -it --name calculator lovyparhar/java-calculator-devops:latest

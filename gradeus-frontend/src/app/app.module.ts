@@ -12,12 +12,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './jwt.interceptor';
 import { GlobalService } from './_services/global.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
 import { InstructorDashboardComponent } from './instructor-dashboard/instructor-dashboard.component';
+import { AddClassDialogComponent } from './add-class-dialog/add-class-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { InstructorDashboardComponent } from './instructor-dashboard/instructor-
     RegisterComponent,
     NavbarComponent,
     StudentDashboardComponent,
-    InstructorDashboardComponent
+    InstructorDashboardComponent,
+    AddClassDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { InstructorDashboardComponent } from './instructor-dashboard/instructor-
     MatButtonModule,
     MatCardModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [
     GlobalService,

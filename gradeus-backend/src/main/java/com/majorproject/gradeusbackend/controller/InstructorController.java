@@ -4,6 +4,7 @@ import com.majorproject.gradeusbackend.entity.ClassGroup;
 import com.majorproject.gradeusbackend.entity.Class;
 import com.majorproject.gradeusbackend.entity.Topic;
 import com.majorproject.gradeusbackend.entity.User;
+import com.majorproject.gradeusbackend.model.GenericResponse;
 import com.majorproject.gradeusbackend.model.IdList;
 import com.majorproject.gradeusbackend.service.TeacherService;
 import lombok.extern.slf4j.Slf4j;
@@ -48,15 +49,15 @@ public class InstructorController {
     }
 
     @DeleteMapping("/class/{id}")
-    public ResponseEntity<String> deleteClass(@PathVariable Long id) {
+    public ResponseEntity<GenericResponse> deleteClass(@PathVariable Long id) {
         teacherService.validateClassId(id);
 
         Optional<Class> optionalEntity = teacherService.findClassById(id);
         if (optionalEntity.isPresent()) {
             teacherService.deleteClassById(id);
-            return new ResponseEntity<>("Class with ID " + id + " deleted successfully", HttpStatus.OK);
+            return new ResponseEntity<>(new GenericResponse("Class with ID " + id + " deleted successfully"), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Class with ID " + id + " not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new GenericResponse("Class with ID " + id + " not found"), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -94,15 +95,15 @@ public class InstructorController {
     }
 
     @DeleteMapping("/group/{id}")
-    public ResponseEntity<String> deleteGroup(@PathVariable Long id) {
+    public ResponseEntity<GenericResponse> deleteGroup(@PathVariable Long id) {
         teacherService.validateGroupId(id);
 
         Optional<ClassGroup> optionalEntity = teacherService.findGroupById(id);
         if (optionalEntity.isPresent()) {
             teacherService.deleteGroupById(id);
-            return new ResponseEntity<>("Group with ID " + id + " deleted successfully", HttpStatus.OK);
+            return new ResponseEntity<>(new GenericResponse("Group with ID " + id + " deleted successfully"), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Group with ID " + id + " not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new GenericResponse("Group with ID " + id + " not found"), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -137,15 +138,15 @@ public class InstructorController {
     }
 
     @DeleteMapping("/topic/{id}")
-    public ResponseEntity<String> deleteTopic(@PathVariable Long id) {
+    public ResponseEntity<GenericResponse> deleteTopic(@PathVariable Long id) {
         teacherService.validateTopicId(id);
 
         Optional<Topic> optionalEntity = teacherService.findTopicById(id);
         if (optionalEntity.isPresent()) {
             teacherService.deleteTopicById(id);
-            return new ResponseEntity<>("Topic with ID " + id + " deleted successfully", HttpStatus.OK);
+            return new ResponseEntity<>(new GenericResponse("Topic with ID " + id + " deleted successfully"), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Topic with ID " + id + " not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new GenericResponse("Topic with ID " + id + " not found"), HttpStatus.NOT_FOUND);
         }
     }
 
