@@ -20,6 +20,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
 import { InstructorDashboardComponent } from './instructor-dashboard/instructor-dashboard.component';
 import { AddClassDialogComponent } from './add-class-dialog/add-class-dialog.component';
+import { InstructorClassComponent } from './instructor-class/instructor-class.component';
+import { AddGroupDialogComponent } from './add-group-dialog/add-group-dialog.component';
+import { AddTopicDialogComponent } from './add-topic-dialog/add-topic-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { AddClassDialogComponent } from './add-class-dialog/add-class-dialog.com
     NavbarComponent,
     StudentDashboardComponent,
     InstructorDashboardComponent,
-    AddClassDialogComponent
+    AddClassDialogComponent,
+    InstructorClassComponent,
+    AddGroupDialogComponent,
+    AddTopicDialogComponent
   ],
   imports: [
     BrowserModule,

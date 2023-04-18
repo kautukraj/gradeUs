@@ -4,6 +4,7 @@ import { Class } from '../models/models';
 import { GlobalService } from '../_services/global.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddClassDialogComponent } from '../add-class-dialog/add-class-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-instructor-dashboard',
@@ -17,15 +18,14 @@ export class InstructorDashboardComponent implements OnInit {
   constructor(
     private instructorService: InstructorService,
     public globalService: GlobalService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
     this.instructorService.getAllClasses().subscribe(classes => {
       this.classes = classes;
-      
-      // console.log(this.classes);
     });
   }
 
@@ -52,6 +52,7 @@ export class InstructorDashboardComponent implements OnInit {
 
   viewDetails(course: Class): void {
     console.log('View details for course:', course);
+    this.router.navigate([`instructor-class/${course.classId}`]);
   }
 
   deleteClass(course: Class): void {
