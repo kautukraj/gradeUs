@@ -10,9 +10,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './jwt.interceptor';
 import { GlobalService } from './_services/global.service';
@@ -23,6 +26,10 @@ import { AddClassDialogComponent } from './add-class-dialog/add-class-dialog.com
 import { InstructorClassComponent } from './instructor-class/instructor-class.component';
 import { AddGroupDialogComponent } from './add-group-dialog/add-group-dialog.component';
 import { AddTopicDialogComponent } from './add-topic-dialog/add-topic-dialog.component';
+import { ClassGroupComponent } from './class-group/class-group.component';
+import { AddStudentDialogComponent } from './add-student-dialog/add-student-dialog.component';
+import { StudentClassComponent } from './student-class/student-class.component';
+import { StudentTopicComponent } from './student-topic/student-topic.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +42,11 @@ import { AddTopicDialogComponent } from './add-topic-dialog/add-topic-dialog.com
     AddClassDialogComponent,
     InstructorClassComponent,
     AddGroupDialogComponent,
-    AddTopicDialogComponent
+    AddTopicDialogComponent,
+    ClassGroupComponent,
+    AddStudentDialogComponent,
+    StudentClassComponent,
+    StudentTopicComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +61,9 @@ import { AddTopicDialogComponent } from './add-topic-dialog/add-topic-dialog.com
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [
     GlobalService,

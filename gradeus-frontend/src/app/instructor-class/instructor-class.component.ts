@@ -33,7 +33,6 @@ export class InstructorClassComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('classId');
     if(id) {
       this.classId = <number>(<unknown>id);
-      console.log('Class ID:', this.classId);
     }
     else {
       this.router.navigate(['instructor-dashboard']);
@@ -75,7 +74,7 @@ export class InstructorClassComponent implements OnInit {
   }
 
   viewGroupDetails(group: ClassGroup) {
-    // Implement the logic to view the details of a group
+    this.router.navigate([`class-group/${group.classGroupId}`]);
   }
 
   deleteGroup(group: ClassGroup) {

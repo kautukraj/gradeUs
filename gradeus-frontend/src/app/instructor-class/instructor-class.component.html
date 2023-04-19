@@ -7,8 +7,10 @@
             Description : {{currentClass?.description}}
         </h3>
     </div>
+
     <br>
     <br>
+    
     <div class="row">
         <div class="col-12">
             <div class="container">
@@ -23,10 +25,11 @@
                         <button mat-raised-button color="primary" (click)="openAddGroupDialog()">Add Group</button>
                     </div>
                 </div>
+                <br>
 
-                <div class="row">
-                    <div class="col-md-4" *ngFor="let group of groups; let i = index;">
-                        <mat-card *ngIf="i < 9">
+                <div class="row" *ngIf="!showAllGroups">
+                    <div class="col-md-4 mb-1" *ngFor="let group of groups; let i = index;">
+                        <mat-card *ngIf="i < 3">
                             <mat-card-header>
                                 <mat-card-title>{{ group.name }}</mat-card-title>
                             </mat-card-header>
@@ -38,13 +41,16 @@
                                 <button mat-button color="warn" (click)="deleteGroup(group)">Delete</button>
                             </mat-card-actions>
                         </mat-card>
-                        <div *ngIf="i === 8 && groups.length > 9">
+                        <br>
+                        <div *ngIf="i === 0 && groups.length > 3">
                             <button mat-raised-button color="primary" (click)="showAllGroups = true">View More</button>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-md-4" *ngIf="showAllGroups">
-                        <mat-card *ngFor="let group of groups;">
+                <div class="row" *ngIf="showAllGroups" >
+                    <div class="col-md-4 mb-1" *ngFor="let group of groups;">
+                        <mat-card>
                             <mat-card-header>
                                 <mat-card-title>{{ group.name }}</mat-card-title>
                             </mat-card-header>
@@ -59,7 +65,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+
+
     </div>
 
     <br>
@@ -79,10 +87,11 @@
                         <button mat-raised-button color="primary" (click)="openAddTopicDialog()">Add Topic</button>
                     </div>
                 </div>
+                <br>
 
-                <div class="row">
-                    <div class="col-md-4" *ngFor="let topic of topics; let i = index;">
-                        <mat-card *ngIf="i < 9">
+                <div class="row" *ngIf="!showAllTopics">
+                    <div class="col-md-4 mb-1" *ngFor="let topic of topics; let i = index;">
+                        <mat-card *ngIf="i < 3">
                             <mat-card-header>
                                 <mat-card-title>{{ topic.name }}</mat-card-title>
                             </mat-card-header>
@@ -94,13 +103,16 @@
                                 <button mat-button color="warn" (click)="deleteTopic(topic)">Delete</button>
                             </mat-card-actions>
                         </mat-card>
-                        <div *ngIf="i === 8 && topics.length > 9">
+                        <br>
+                        <div *ngIf="i === 0 && topics.length > 3">
                             <button mat-raised-button color="primary" (click)="showAllTopics = true">View More</button>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-md-4" *ngIf="showAllTopics">
-                        <mat-card *ngFor="let topic of topics;">
+                <div class="row" *ngIf="showAllTopics">
+                    <div class="col-md-4 mb-1" *ngFor="let topic of topics;">
+                        <mat-card>
                             <mat-card-header>
                                 <mat-card-title>{{ topic.name }}</mat-card-title>
                             </mat-card-header>
@@ -114,6 +126,7 @@
                         </mat-card>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

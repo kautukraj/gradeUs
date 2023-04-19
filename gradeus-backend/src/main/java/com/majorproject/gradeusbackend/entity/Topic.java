@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "topic")
@@ -25,7 +27,8 @@ public class Topic {
 
     private String description;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "class_id", nullable = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "classId")
     @JsonIdentityReference(alwaysAsId = true)

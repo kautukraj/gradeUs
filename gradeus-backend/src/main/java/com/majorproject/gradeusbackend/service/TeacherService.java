@@ -5,7 +5,9 @@ import com.majorproject.gradeusbackend.entity.Class;
 import com.majorproject.gradeusbackend.exceptions.InvalidAccessException;
 import com.majorproject.gradeusbackend.exceptions.ResourceNotFoundException;
 import com.majorproject.gradeusbackend.repository.*;
+import com.majorproject.gradeusbackend.utils.Role;
 import com.majorproject.gradeusbackend.utils.StudentGroupMapId;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class TeacherService {
 
     @Autowired
@@ -72,8 +75,16 @@ public class TeacherService {
         }
     }
 
+    public Long deleteStudentFromGroup(Long studentId, Long groupId) {
+        return studentGroupMapRepository.deleteByStudent_IdAndGroup_ClassGroupId(studentId, groupId);
+    }
+
     public List<User> getStudentsInGroup(Long groupId) {
         return userRepository.findStudentsInGroup(groupId);
+    }
+
+    public List<User> getStudentsNotInGroup(Long classId) {
+        return userRepository.findStudentsNotInGroup(classId);
     }
 
     public void validateTeacherId(Long teacherId) {
@@ -156,4 +167,7 @@ public class TeacherService {
     }
 
 
+    public List<User> getAllStudents() {
+        return userRepository.findByRole(Role.STUDENT);
+    }
 }

@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "student_group_map")
@@ -21,14 +23,16 @@ public class StudentGroupMap {
     @EmbeddedId
     private StudentGroupMapId studentGroupMapId;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @MapsId("studentId")
     @JoinColumn(name = "student_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     private User student;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @MapsId("groupId")
     @JoinColumn(name = "group_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "groupId")

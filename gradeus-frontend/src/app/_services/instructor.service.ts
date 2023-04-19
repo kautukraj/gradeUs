@@ -87,8 +87,23 @@ export class InstructorService {
     return this.http.post<void>(url, {ids: studentIds});
   }
 
+  deleteStudentFromGroup(studentId: number, groupId: number): Observable<string> {
+    const url = `${this.prefix}/group/student/${studentId}?groupId=${groupId}`;
+    return this.http.delete<string>(url);
+  }
+
   getStudentsInGroup(groupId: number): Observable<User[]> {
     const url = `${this.prefix}/group/students?groupId=${groupId}`;
+    return this.http.get<User[]>(url);
+  }
+
+  getStudentsNotInGroup(classId: number): Observable<User[]> {
+    const url = `${this.prefix}/not-group/students?classId=${classId}`;
+    return this.http.get<User[]>(url);
+  }
+
+  getAllStudents(): Observable<User[]> {
+    const url = `${this.prefix}/students`;
     return this.http.get<User[]>(url);
   }
 }

@@ -7,6 +7,7 @@ import com.majorproject.gradeusbackend.entity.User;
 import com.majorproject.gradeusbackend.model.GenericResponse;
 import com.majorproject.gradeusbackend.model.IdList;
 import com.majorproject.gradeusbackend.service.TeacherService;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -167,5 +168,28 @@ public class InstructorController {
         teacherService.validateGroupId(groupId);
 
         return new ResponseEntity<List<User>>(teacherService.getStudentsInGroup(groupId), HttpStatus.OK);
+    }
+    @DeleteMapping("/group/student/{id}")
+    public ResponseEntity<GenericResponse> deleteStudentFromGroup(@PathVariable Long id, @RequestParam Long groupId) {
+        teacherService.validateGroupId(groupId);
+        Long del = teacherService.deleteStudentFromGroup(id, groupId);
+        if (del > 0) {
+            teacherService.deleteTopicById(id);
+            return new ResponseEntity<>(new GenericResponse("Student with ID " + id + " deleted successfully from group."), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new GenericResponse("Student with ID " + id + " not found in this group."), HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @GetMapping("/not-group/students")
+    public ResponseEntity<List<User>> getStudentsNotInGroup(@RequestParam Long classId) {
+        return new ResponseEntity<List<User>>(teacherService.getStudentsNotInGroup(classId), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/students")
+    public ResponseEntity<List<User>> getAllStudents() {
+        return new ResponseEntity<List<User>>(teacherService.getAllStudents(), HttpStatus.OK);
     }
 }

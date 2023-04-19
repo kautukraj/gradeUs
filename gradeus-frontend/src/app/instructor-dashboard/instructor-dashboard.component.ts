@@ -51,7 +51,6 @@ export class InstructorDashboardComponent implements OnInit {
 
 
   viewDetails(course: Class): void {
-    console.log('View details for course:', course);
     this.router.navigate([`instructor-class/${course.classId}`]);
   }
 

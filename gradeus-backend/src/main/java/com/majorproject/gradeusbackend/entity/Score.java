@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "score")
@@ -25,25 +27,29 @@ public class Score {
 
     private String feedback;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "student_id", nullable = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     private User student;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "scorer_id", nullable = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     private User scorer;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "classGroupId")
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "group_id", nullable = false)
     private ClassGroup group;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "topic_id", nullable = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "topicId")
     @JsonIdentityReference(alwaysAsId = true)

@@ -1,45 +1,48 @@
 package com.majorproject.gradeusbackend.controller;
 
+import com.majorproject.gradeusbackend.entity.*;
 import com.majorproject.gradeusbackend.entity.Class;
-import com.majorproject.gradeusbackend.entity.ClassGroup;
-import com.majorproject.gradeusbackend.entity.Score;
-import com.majorproject.gradeusbackend.entity.Topic;
+import com.majorproject.gradeusbackend.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
 
+    @Autowired
+    private StudentService studentService;
+
     // The classes in which the student is enrolled in
-//    @GetMapping("/classes")
-//    public List<Class> getAllClasses() {
-//        return teacherService.findAllClasses();
-//    }
-//
-//    // The topics in a class
-//    @GetMapping("/topics")
-//    public List<Topic> getAllTopics(@RequestParam Long classId) {
-//        teacherService.validateClassId(classId);
-//        return teacherService.findAllTopics(classId);
-//    }
-//
-//    // The groups in which the student is present
-//    @GetMapping("/groups")
-//    public List<ClassGroup> getAllGroups(@RequestParam Long classId) {
-//        teacherService.validateClassId(classId);
-//        return teacherService.findAllGroups(classId);
-//    }
-//
-//    @PostMapping("/score")
-//    public ResponseEntity<Score> addScore(@RequestBody Score score) {
-//
-////        teacherService.validateClassId(classId);
-////
-////        Topic addedTopic = teacherService.addTopic(newTopic, classId);
-////        return new ResponseEntity<>(addedTopic, HttpStatus.CREATED);
-//    }
+    @GetMapping("/classes")
+    public List<Class> getAllClasses() {
+        return studentService.getAllClasses();
+    }
+
+    // The topics in a class
+    @GetMapping("/topics")
+    public List<Topic> getAllTopics(@RequestParam Long classId) {
+        return studentService.getTopicsInClass(classId);
+    }
+
+    @GetMapping("/topic/{id}")
+    public ResponseEntity<Topic> getTopicById(@PathVariable Long id) {
+
+        Optional<Topic> optionalEntity = studentService.findTopicById(id);
+        if (optionalEntity.isPresent()) {
+            return new ResponseEntity<>(optionalEntity.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/group-members")
+    public List<User> getGroupMembersInClass(@RequestParam Long classId) {
+        return studentService.getGroupMembersInClass(classId);
+    }
 }
