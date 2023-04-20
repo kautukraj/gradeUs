@@ -8,6 +8,7 @@ import { ClassGroupComponent } from './class-group/class-group.component';
 import { StudentClassComponent } from './student-class/student-class.component';
 import { StudentTopicComponent } from './student-topic/student-topic.component';
 import { InstructorTopicComponent } from './instructor-topic/instructor-topic.component';
+import {AboutComponent} from "./about/about.component";
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,4 +21,5 @@ export const routes: Routes = [
   { path: 'student-dashboard', component: StudentDashboardComponent },
   { path: 'student-class/:classId', component: StudentClassComponent },
   { path: 'student-topic/:topicId', component: StudentTopicComponent },
+  { path: 'about', component: AboutComponent }
 ];

@@ -65,7 +65,6 @@ public class InstructorController {
 
 
 
-
     @PostMapping("/group")
     public ResponseEntity<ClassGroup> addGroup(@RequestBody ClassGroup newGroup, @RequestParam Long classId) {
         teacherService.validateClassId(classId);

@@ -44,7 +44,8 @@ public class AuthService {
                     .token(jwtToken)
                     .build();
         } catch (Exception exception) {
-            log.info("Duplicate user is found.");
+            // log.info("Duplicate user is found.");
+            log.error("Duplicate user is found.", exception);
             return AuthResponse.builder().message("Duplicate User Found!").build();
         }
     }
@@ -73,4 +74,7 @@ public class AuthService {
                 .role(userObject.getRole().name())
                 .build();
     }
+
+
+
 }

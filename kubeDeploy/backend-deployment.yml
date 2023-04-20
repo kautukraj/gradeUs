@@ -35,7 +35,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8500                
-          env:   # Setting Enviornmental Variables
+          env:   # Setting Environmental Variables
           - name: MYSQL_HOST   # Setting Database host address from configMap
             valueFrom: 
               configMapKeyRef:
