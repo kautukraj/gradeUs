@@ -59,10 +59,31 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Kubernetes deployment') {
+        stage('Adding secrets and config maps to kubernetes cluster') {
             steps {
                 withKubeConfig([credentialsId: 'aksConfig', serverUrl: 'https://gradeus-dns-9q6us9tx.hcp.eastus.azmk8s.io']) {
-                    sh 'kubectl get nodes'
+                    sh 'kubectl apply -f kubeDeploy/mysql-root-credentials.yml'
+                    sh 'kubectl apply -f kubeDeploy/mysql-credentials.yml'
+                    sh 'kubectl apply -f kubeDeploy/mysql-configmap.yml'
+                }
+            }
+        }
+
+        stage('Deploying application to kubernetes cluster') {
+            steps {
+                withKubeConfig([credentialsId: 'aksConfig', serverUrl: 'https://gradeus-dns-9q6us9tx.hcp.eastus.azmk8s.io']) {
+                    sh 'kubectl apply -f kubeDeploy/mysql-deployment.yml'
+                    sh 'kubectl apply -f kubeDeploy/backend-deployment.yml'
+                    sh 'kubectl apply -f kubeDeploy/frontend-deployment.yml'
+                }
+            }
+        }
+
+        stage('Deploying logstash and filebeats inside the kubernetes cluster') {
+            steps {
+                withKubeConfig([credentialsId: 'aksConfig', serverUrl: 'https://gradeus-dns-9q6us9tx.hcp.eastus.azmk8s.io']) {
+                    sh 'helm install filebeat kubeDeploy/filebeat'
+                    sh 'helm install logstash kubeDeploy/logstash'
                 }
             }
         }
