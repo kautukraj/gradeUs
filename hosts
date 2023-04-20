@@ -1,5 +1,0 @@
-[jenkins]
-localhost ansible_user=jenkins ansible_ssh_pass=jenkins ansible_python_interpreter=/usr/bin/python3
-
-[server]
-ubuntu-server ansible_user=ubuntu-server
