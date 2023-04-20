@@ -8,20 +8,17 @@ import com.majorproject.gradeusbackend.exceptions.InvalidAccessException;
 import com.majorproject.gradeusbackend.model.ScoreModel;
 import com.majorproject.gradeusbackend.model.ScoreResponse;
 import com.majorproject.gradeusbackend.repository.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class StudentService {
     @Autowired
     private ClassRepository classRepository;
@@ -45,22 +42,24 @@ public class StudentService {
     public List<Class> getAllClasses() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
-
+        log.debug("Getting all classes for user with ID: {}", user.getId());
         return classRepository.findAllClassesForStudent(user.getId());
     }
 
     public List<Topic> getTopicsInClass(Long classId) {
+        log.debug("Getting all topics for class with ID: {}", classId);
         return topicRepository.findByClassObj_ClassId(classId);
     }
 
     public List<User> getGroupMembersInClass(Long classId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
-
+        log.debug("Getting group members for user with ID: {} in class with ID: {}", user.getId(), classId);
         return userRepository.getGroupMembersInClass(user.getId(), classId);
     }
 
     public Optional<Topic> findTopicById(Long id) {
+        log.debug("Finding topic by ID: {}", id);
         return topicRepository.findById(id);
     }
 
@@ -69,6 +68,7 @@ public class StudentService {
         User user = (User) auth.getPrincipal();
         Long scorerId = user.getId();
 
+        log.debug("Getting score for student with ID: {} in topic with ID: {} by scorer with ID: {}", studentId, topicId, scorerId);
         Score fetchedScore = this.scoreRepository.findByStudent_IdAndScorer_IdAndTopic_TopicId(studentId, scorerId, topicId);
 
         if(fetchedScore != null) {
@@ -86,7 +86,7 @@ public class StudentService {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
-
+        log.debug("Adding score for student with ID: {} in topic with ID: {} by scorer with ID: {}", score.getStudentId(), score.getTopicId(), user.getId());
 //        System.out.println("user = " + user);
 //        System.out.println("(this.userRepository.findById(score.getScorerId()).get() = " + this.userRepository.findById(score.getScorerId()).get());
 //        System.out.println("this.groupRepository.findById(score.getGroupId()).get() = " + this.groupRepository.findById(score.getGroupId()).get());
