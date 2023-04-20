@@ -90,8 +90,12 @@ pipeline {
         stage('Deploying application to kubernetes cluster') {
             steps {
                 withKubeConfig([credentialsId: 'aksConfig', serverUrl: 'https://gradeus-dns-9q6us9tx.hcp.eastus.azmk8s.io']) {
+                    sh 'kubectl apply -f kubeDeploy/mysql-service.yml'
+                    sh 'kubectl apply -f kubeDeploy/mysql-pvc.yml'
                     sh 'kubectl apply -f kubeDeploy/mysql-deployment.yml'
+                    sh 'kubectl apply -f kubeDeploy/backend-service.yml'
                     sh 'kubectl apply -f kubeDeploy/backend-deployment.yml'
+                    sh 'kubectl apply -f kubeDeploy/frontend-service.yml'
                     sh 'kubectl apply -f kubeDeploy/frontend-deployment.yml'
                 }
             }
