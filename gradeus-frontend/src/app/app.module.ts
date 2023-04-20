@@ -33,6 +33,7 @@ import { AddStudentDialogComponent } from './add-student-dialog/add-student-dial
 import { StudentClassComponent } from './student-class/student-class.component';
 import { StudentTopicComponent } from './student-topic/student-topic.component';
 import { InstructorTopicComponent } from './instructor-topic/instructor-topic.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { InstructorTopicComponent } from './instructor-topic/instructor-topic.co
     AddStudentDialogComponent,
     StudentClassComponent,
     StudentTopicComponent,
-    InstructorTopicComponent
+    InstructorTopicComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
