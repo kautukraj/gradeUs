@@ -60,8 +60,10 @@ pipeline {
         //     }
         // }
         stage('Kubernetes deployment') {
-            withKubeConfig([credentialsId: 'aksConfig', serverUrl: 'https://gradeus-dns-9q6us9tx.hcp.eastus.azmk8s.io']) {
-                sh 'kubectl get nodes'
+            steps {
+                withKubeConfig([credentialsId: 'aksConfig', serverUrl: 'https://gradeus-dns-9q6us9tx.hcp.eastus.azmk8s.io']) {
+                    sh 'kubectl get nodes'
+                }
             }
         }
     }
