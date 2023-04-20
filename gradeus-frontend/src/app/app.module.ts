@@ -20,6 +20,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './jwt.interceptor';
 import { GlobalService } from './_services/global.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
 import { InstructorDashboardComponent } from './instructor-dashboard/instructor-dashboard.component';
 import { AddClassDialogComponent } from './add-class-dialog/add-class-dialog.component';
@@ -30,6 +32,7 @@ import { ClassGroupComponent } from './class-group/class-group.component';
 import { AddStudentDialogComponent } from './add-student-dialog/add-student-dialog.component';
 import { StudentClassComponent } from './student-class/student-class.component';
 import { StudentTopicComponent } from './student-topic/student-topic.component';
+import { InstructorTopicComponent } from './instructor-topic/instructor-topic.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import { StudentTopicComponent } from './student-topic/student-topic.component';
     ClassGroupComponent,
     AddStudentDialogComponent,
     StudentClassComponent,
-    StudentTopicComponent
+    StudentTopicComponent,
+    InstructorTopicComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +67,8 @@ import { StudentTopicComponent } from './student-topic/student-topic.component';
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule
   ],
   providers: [
     GlobalService,

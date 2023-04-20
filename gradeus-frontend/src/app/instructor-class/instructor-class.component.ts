@@ -112,7 +112,7 @@ export class InstructorClassComponent implements OnInit {
   }
 
   viewTopicDetails(topic: Topic) {
-    // Implement the logic to view the details of a group
+    this.router.navigate([`instructor-topic/${topic.topicId}`]);
   }
 
   deleteTopic(topic: Topic) {

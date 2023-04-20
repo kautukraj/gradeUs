@@ -34,6 +34,8 @@ public class TeacherService {
 
     @Autowired
     private StudentGroupMapRepository studentGroupMapRepository;
+    @Autowired
+    private ScoreRepository scoreRepository;
 
     public Class addClass(Class newClass, Long teacherId) {
         User teacher = userRepository.findById(teacherId)
@@ -169,5 +171,13 @@ public class TeacherService {
 
     public List<User> getAllStudents() {
         return userRepository.findByRole(Role.STUDENT);
+    }
+
+    public List<Score> getScoresInTopic(Long topicId) {
+        return scoreRepository.findByTopic_TopicId(topicId);
+    }
+
+    public Long deleteScore(Long studentId, Long scorerId, Long topicId) {
+        return scoreRepository.deleteByStudent_IdAndScorer_IdAndTopic_TopicId(studentId, scorerId, topicId);
     }
 }

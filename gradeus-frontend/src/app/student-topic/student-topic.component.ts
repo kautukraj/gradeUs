@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalService } from '../_services/global.service';
 import { StudentService } from '../_services/student.service';
-import { Topic, User } from '../models/models';
+import { Score, ScoreResponse, Topic, User } from '../models/models';
 
 @Component({
   selector: 'app-student-topic',
@@ -17,6 +17,7 @@ export class StudentTopicComponent implements OnInit {
 
   members!: User[];
   membersForm!: FormGroup;
+  disabledMembers: any = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -37,24 +38,56 @@ export class StudentTopicComponent implements OnInit {
       return;
     }
 
-    this.studentService.getTopicById(this.topicId).subscribe(currentTopic => {
-      this.currentTopic = currentTopic;
-      this.studentService.getGroupMembersInClass(this.currentTopic.classObj).subscribe(
-        members => {
-          this.members = members;
-          const formControls: any = {};
-          for (let member of this.members) {
-            formControls[member.id] = new FormControl(null);
+    this.studentService.getTopicById(this.topicId).subscribe(
+      (currentTopic: Topic) => {
+
+        this.currentTopic = currentTopic;
+        this.studentService.getGroupMembersInClass(this.currentTopic.classObj).subscribe(
+          (members: User[]) => {
+
+            this.members = members;
+            const formControls: any = {};
+
+            for (let member of this.members) {
+              const fieldName = member.id.toString();
+              formControls[fieldName] = new FormControl(null);
+            }
+
+            this.membersForm = new FormGroup(formControls);
+
+            for (let member of this.members) {
+
+              this.studentService.getScore(member.id, this.topicId).subscribe(
+                (scoreResponse: ScoreResponse) => {
+
+                  if (scoreResponse.present) {
+                    
+                    const fieldName = member.id.toString();
+                    this.membersForm.get(fieldName)!.disable();
+                    this.membersForm.patchValue({
+                      [fieldName]: scoreResponse.scoreValue
+                    });
+                  }
+                }
+              )
+            }
+
           }
-          this.membersForm = new FormGroup(formControls);
-        }
-      )
-    });
+        )
+      });
   }
 
-  submitScore(member: any) {
-    // console.log(`Submitting score ${this.membersForm.get(member.id).value} for ${member.name}`);
-    // Call API to submit score here
+  submitScore(member: User) {
+    let scoreValue: number = this.membersForm.value[member.id];
+    this.studentService.addScore({ studentId: member.id, scoreValue: scoreValue, topicId: this.topicId }).subscribe(
+      (score: Score) => {
+        const fieldName = member.id.toString();
+        this.membersForm.get(fieldName)!.disable();
+        this.membersForm.patchValue({
+          [fieldName]: score.scoreValue
+        });
+      }
+    )
   }
 
 }

@@ -2,6 +2,8 @@ package com.majorproject.gradeusbackend.controller;
 
 import com.majorproject.gradeusbackend.entity.*;
 import com.majorproject.gradeusbackend.entity.Class;
+import com.majorproject.gradeusbackend.model.ScoreModel;
+import com.majorproject.gradeusbackend.model.ScoreResponse;
 import com.majorproject.gradeusbackend.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,5 +46,18 @@ public class StudentController {
     @GetMapping("/group-members")
     public List<User> getGroupMembersInClass(@RequestParam Long classId) {
         return studentService.getGroupMembersInClass(classId);
+    }
+
+
+    @GetMapping("/get-score")
+    public ResponseEntity<ScoreResponse> getScore(@RequestParam Long studentId, @RequestParam Long topicId) {
+        ScoreResponse sr = this.studentService.getScore(studentId, topicId);
+        return new ResponseEntity<>(sr, HttpStatus.OK);
+    }
+
+    @PostMapping("/add-score")
+    public ResponseEntity<Score> addScore(@RequestBody ScoreModel score) {
+        Score addedScore = studentService.addScore(score);
+        return new ResponseEntity<>(addedScore, HttpStatus.CREATED);
     }
 }

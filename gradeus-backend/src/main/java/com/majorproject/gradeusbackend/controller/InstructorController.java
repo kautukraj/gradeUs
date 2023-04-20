@@ -1,9 +1,7 @@
 package com.majorproject.gradeusbackend.controller;
 
-import com.majorproject.gradeusbackend.entity.ClassGroup;
+import com.majorproject.gradeusbackend.entity.*;
 import com.majorproject.gradeusbackend.entity.Class;
-import com.majorproject.gradeusbackend.entity.Topic;
-import com.majorproject.gradeusbackend.entity.User;
 import com.majorproject.gradeusbackend.model.GenericResponse;
 import com.majorproject.gradeusbackend.model.IdList;
 import com.majorproject.gradeusbackend.service.TeacherService;
@@ -174,7 +172,6 @@ public class InstructorController {
         teacherService.validateGroupId(groupId);
         Long del = teacherService.deleteStudentFromGroup(id, groupId);
         if (del > 0) {
-            teacherService.deleteTopicById(id);
             return new ResponseEntity<>(new GenericResponse("Student with ID " + id + " deleted successfully from group."), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(new GenericResponse("Student with ID " + id + " not found in this group."), HttpStatus.NOT_FOUND);
@@ -191,5 +188,24 @@ public class InstructorController {
     @GetMapping("/students")
     public ResponseEntity<List<User>> getAllStudents() {
         return new ResponseEntity<List<User>>(teacherService.getAllStudents(), HttpStatus.OK);
+    }
+
+
+
+    @GetMapping("/scores")
+    public ResponseEntity<List<Score>> getScoresInTopic(@RequestParam Long topicId) {
+        System.out.println("topicId = " + topicId);
+        return new ResponseEntity<List<Score>>(teacherService.getScoresInTopic(topicId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/score")
+    public ResponseEntity<GenericResponse> deleteStudentFromGroup(@RequestParam Long studentId, @RequestParam Long scorerId, @RequestParam Long topicId) {
+
+        Long del = teacherService.deleteScore(studentId, scorerId, topicId);
+        if (del > 0) {
+            return new ResponseEntity<>(new GenericResponse("Score deleted successfully."), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new GenericResponse("Score not found."), HttpStatus.NOT_FOUND);
+        }
     }
 }

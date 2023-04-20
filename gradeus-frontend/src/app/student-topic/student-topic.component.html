@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="col-4" style="display: flex; align-items: center; justify-content: left;">
-                            <button mat-raised-button color="primary" (click)="submitScore(member)">Submit</button>
+                            <button mat-raised-button color="primary" [disabled]="membersForm.get(member.id.toString())?.disabled" (click)="submitScore(member)">Submit</button>
                         </div>
 
                     </div>

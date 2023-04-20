@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { GlobalService } from './global.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Class, ClassGroup, Topic, User } from '../models/models';
+import { Class, ClassGroup, ScoreFull, Topic, User } from '../models/models';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -105,5 +105,15 @@ export class InstructorService {
   getAllStudents(): Observable<User[]> {
     const url = `${this.prefix}/students`;
     return this.http.get<User[]>(url);
+  }
+
+  getScoresInTopic(topicId: number): Observable<ScoreFull[]> {
+    const url = `${this.prefix}/scores?topicId=${topicId}`;
+    return this.http.get<ScoreFull[]>(url);
+  } 
+
+  deleteScore(studentId: number, scorerId: number, topicId: number): Observable<String> {
+    const url = `${this.prefix}/score?studentId=${studentId}&scorerId=${scorerId}&topicId=${topicId}`;
+    return this.http.delete<String>(url);
   }
 }

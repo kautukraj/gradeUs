@@ -2,7 +2,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Class, Topic, User } from '../models/models';
+import { Class, Score, ScoreRequest, ScoreResponse, Topic, User } from '../models/models';
 import { GlobalService } from './global.service';
 
 const httpOptions = {
@@ -39,5 +39,15 @@ export class StudentService {
   getGroupMembersInClass(classId: number): Observable<User[]> {
     const url = `${this.prefix}/group-members?classId=${classId}`;
     return this.http.get<User[]>(url);
+  }
+
+  getScore(studentId: number, topicId: number): Observable<ScoreResponse> {
+    const url = `${this.prefix}/get-score?studentId=${studentId}&topicId=${topicId}`;
+    return this.http.get<ScoreResponse>(url);
+  }
+
+  addScore(score: ScoreRequest): Observable<Score> {
+    const url = `${this.prefix}/add-score`;
+    return this.http.post<Score>(url, score);
   }
 }
