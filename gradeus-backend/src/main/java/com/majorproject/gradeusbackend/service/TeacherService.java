@@ -257,7 +257,7 @@ public class TeacherService
     }
 
 
-    public List<Topic> findAllTopics(Long classId)
+    /*public List<Topic> findAllTopics(Long classId)
     {
         try
         {
@@ -267,7 +267,22 @@ public class TeacherService
             log.error("An error occurred while finding all topics for classId={}", classId, e);
             throw new RuntimeException("Failed to find all topics", e);
         }
+    }*/
+
+    public List<Topic> findAllTopics(Long classId) {
+        List<Topic> topics = null;
+        try {
+            topics = topicRepository.findByClassObj_ClassId(classId);
+        } catch (Exception e) {
+            log.error("An error occurred while finding all topics for classId={}", classId, e);
+            throw new RuntimeException("Failed to find all topics", e);
+        }
+        if (topics.isEmpty()) {
+            throw new ResourceNotFoundException("Failed to find all topics");
+        }
+        return topics;
     }
+
 
     public Optional<Topic> findTopicById(Long id)
     {

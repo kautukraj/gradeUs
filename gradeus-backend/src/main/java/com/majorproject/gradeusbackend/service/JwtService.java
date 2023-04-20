@@ -28,6 +28,11 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
+    public String getSecretKey() {
+        return SECRET_KEY;
+    }
+
+
     // Generate a jwt token in case a new user registers / logs without extra claims
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
