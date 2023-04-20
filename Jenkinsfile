@@ -77,6 +77,16 @@ pipeline {
             }
         }
 
+        stage('Deleting older application deployment') {
+            steps {
+                withKubeConfig([credentialsId: 'aksConfig', serverUrl: 'https://gradeus-dns-9q6us9tx.hcp.eastus.azmk8s.io']) {
+                    sh 'kubectl delete -f kubeDeploy/mysql-deployment.yml'
+                    sh 'kubectl delete -f kubeDeploy/backend-deployment.yml'
+                    sh 'kubectl delete -f kubeDeploy/frontend-deployment.yml'
+                }
+            }
+        }
+
         stage('Deploying application to kubernetes cluster') {
             steps {
                 withKubeConfig([credentialsId: 'aksConfig', serverUrl: 'https://gradeus-dns-9q6us9tx.hcp.eastus.azmk8s.io']) {
