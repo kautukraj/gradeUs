@@ -24,11 +24,11 @@ logstashPipeline:
     }
     output {
       elasticsearch {
-        cloud_id => "majorProject:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvOjQ0MyQzMzg0YTE5YjFlNGE0MmQ2OWJkYTk3NzNlNmNmNTBhOSRiOTFkNjEwMGQ0M2M0MmM3YjcwNWE5YmQ5NGMxZDQwYQ=="
+        cloud_id => "gradeusMonitoring:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvOjQ0MyRlM2Y2OWRjNGJhOGE0NDhmOTdlNDhiYWMzMGEwNmZkMCQzMDFiMTgxMTllNWM0YjAwYWQ0NWM2YTAxMGQyNjdmYg=="
         ssl => true
         ilm_enabled => false
         user => "elastic"
-        password => "suLUbJ6L3f4elgtrV7NFBESl"
+        password => "eNeye3dWC4fqB5CnOsFft6Il"
         index => "applog-%{+YYYY.MM.dd}"
       }
       stdout { codec => rubydebug }
