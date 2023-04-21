@@ -270,16 +270,12 @@ public class TeacherService
     }*/
 
     public List<Topic> findAllTopics(Long classId) {
-        List<Topic> topics = null;
-        try {
-            topics = topicRepository.findByClassObj_ClassId(classId);
-        } catch (Exception e) {
-            log.error("An error occurred while finding all topics for classId={}", classId, e);
-            throw new RuntimeException("Failed to find all topics", e);
-        }
-        if (topics.isEmpty()) {
-            throw new ResourceNotFoundException("Failed to find all topics");
-        }
+        log.debug("Finding all topics for class with ID: {}", classId);
+
+        List<Topic> topics = topicRepository.findByClassObj_ClassId(classId);
+
+        log.debug("Found {} topics for class with ID: {}", topics.size(), classId);
+
         return topics;
     }
 
@@ -345,3 +341,4 @@ public class TeacherService
         }
     }
 }
+

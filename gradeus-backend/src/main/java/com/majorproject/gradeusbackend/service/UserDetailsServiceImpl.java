@@ -17,14 +17,16 @@ public class UserDetailsServiceImpl implements UserDetailsService
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        try {
-            log.debug("Loading user by username: {}", username);
-            return userRepository.findByUsername(username)
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        } catch (Exception e) {
-            log.error("An error occurred while loading user by username: {}", username, e);
-            throw new RuntimeException("Failed to load user by username", e);
-        }
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
+    {
+        log.debug("Loading user by username: {}", username);
+        return userRepository.findByUsername(username)
+                .orElseThrow(
+                        () ->
+                        {
+                            return new UsernameNotFoundException("User not found");
+                        }
+                );
     }
+
 }
