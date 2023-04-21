@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GlobalService } from './global.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -72,5 +72,10 @@ export class AuthenticationService {
           return credentials;
         })
       );
+  }
+
+  sessionAlive(): Observable<String> {
+    const url = `${this.globalService.rootUrl}/session/alive`;
+    return this.http.get<String>(url);
   }
 }

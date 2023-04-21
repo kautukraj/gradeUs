@@ -40,6 +40,8 @@ public class SecurityConfiguration {
                 .hasRole("INSTRUCTOR")
                 .requestMatchers("/student/**")
                 .hasRole("STUDENT")
+                .requestMatchers("/session/**")
+                .hasAnyRole("INSTRUCTOR", "STUDENT")
                 .anyRequest()
                 .authenticated()
                 .and()
