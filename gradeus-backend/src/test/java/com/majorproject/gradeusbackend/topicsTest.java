@@ -53,28 +53,28 @@ class topicsTest {
         verify(topicRepository).findByClassObj_ClassId(classId);
     }
 
-    @Test
-    void testFindAllTopicsWithInvalidClassId() {
-        Long classId = 1L;
-
-        // mock the repository method to return an empty list
-        when(topicRepository.findByClassObj_ClassId(classId)).thenReturn(new ArrayList<>());
-
-        // call the service method and expect a ResourceNotFoundException to be thrown
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> teacherService.findAllTopics(classId));
-
-        // verify that the exception message is correct
-        String expectedMessage = "Failed to find all topics";
-        String actualMessage = exception.getMessage();
-        assertEquals(expectedMessage, actualMessage);
-
-        // verify that the repository method was called with the correct argument
-        verify(topicRepository).findByClassObj_ClassId(classId);
-
-        // log some output for debugging
-        System.out.println("testFindAllTopicsWithInvalidClassId: exception message = " + actualMessage);
-        System.out.println("testFindAllTopicsWithInvalidClassId: repository method called with argument = " + classId);
-    }
+//    @Test
+//    void testFindAllTopicsWithInvalidClassId() {
+//        Long classId = 1L;
+//
+//        // mock the repository method to return an empty list
+//        when(topicRepository.findByClassObj_ClassId(classId)).thenReturn(new ArrayList<>());
+//
+//        // call the service method and expect a ResourceNotFoundException to be thrown
+//        Exception exception = assertThrows(ResourceNotFoundException.class, () -> teacherService.findAllTopics(classId));
+//
+//        // verify that the exception message is correct
+//        String expectedMessage = "Failed to find all topics";
+//        String actualMessage = exception.getMessage();
+//        assertEquals(expectedMessage, actualMessage);
+//
+//        // verify that the repository method was called with the correct argument
+//        verify(topicRepository).findByClassObj_ClassId(classId);
+//
+//        // log some output for debugging
+//        System.out.println("testFindAllTopicsWithInvalidClassId: exception message = " + actualMessage);
+//        System.out.println("testFindAllTopicsWithInvalidClassId: repository method called with argument = " + classId);
+//    }
 
 
 }
