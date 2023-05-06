@@ -16,7 +16,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class AuthService {
+public class AuthService
+{
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -26,7 +27,8 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public AuthResponse register(RegisterRequest request) {
+    public AuthResponse register(RegisterRequest request)
+    {
         log.info("Register function is called.");
         var user = User.builder()
                 .firstname(request.getFirstname())
@@ -37,20 +39,23 @@ public class AuthService {
                 .username(request.getUsername())
                 .phoneNumber(request.getPhoneNumber())
                 .build();
-        try {
+        try
+        {
             userRepository.save(user);
             var jwtToken = jwtService.generateToken(user);
             return AuthResponse.builder()
                     .token(jwtToken)
                     .build();
-        } catch (Exception exception) {
+        } catch (Exception exception)
+        {
             // log.info("Duplicate user is found.");
             log.error("Duplicate user is found.", exception);
             return AuthResponse.builder().message("Duplicate User Found!").build();
         }
     }
 
-    public AuthResponse login(LoginRequest request) {
+    public AuthResponse login(LoginRequest request)
+    {
         log.info("Login function is called.");
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -60,7 +65,7 @@ public class AuthService {
         );
         UserDetails user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow();
-        User userObject = (User)user;
+        User userObject = (User) user;
         String jwtToken = jwtService.generateToken(user);
 
         log.info("Sending the jwt token back");
@@ -74,7 +79,6 @@ public class AuthService {
                 .role(userObject.getRole().name())
                 .build();
     }
-
 
 
 }

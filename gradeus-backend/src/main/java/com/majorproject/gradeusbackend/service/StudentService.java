@@ -19,7 +19,8 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class StudentService {
+public class StudentService
+{
     @Autowired
     private ClassRepository classRepository;
 
@@ -39,54 +40,62 @@ public class StudentService {
     private ScoreRepository scoreRepository;
 
 
-    public List<Class> getAllClasses() {
+    public List<Class> getAllClasses()
+    {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
-        log.debug("Getting all classes for user with ID: {}", user.getId());
+        log.info("Getting all classes for user with ID: {}", user.getId());
         return classRepository.findAllClassesForStudent(user.getId());
     }
 
-    public List<Topic> getTopicsInClass(Long classId) {
-        log.debug("Getting all topics for class with ID: {}", classId);
+    public List<Topic> getTopicsInClass(Long classId)
+    {
+        log.info("Getting all topics for class with ID: {}", classId);
         return topicRepository.findByClassObj_ClassId(classId);
     }
 
-    public List<User> getGroupMembersInClass(Long classId) {
+    public List<User> getGroupMembersInClass(Long classId)
+    {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
-        log.debug("Getting group members for user with ID: {} in class with ID: {}", user.getId(), classId);
+        log.info("Getting group members for user with ID: {} in class with ID: {}", user.getId(), classId);
         return userRepository.getGroupMembersInClass(user.getId(), classId);
     }
 
-    public Optional<Topic> findTopicById(Long id) {
-        log.debug("Finding topic by ID: {}", id);
+    public Optional<Topic> findTopicById(Long id)
+    {
+        log.info("Finding topic by ID: {}", id);
         return topicRepository.findById(id);
     }
 
-    public ScoreResponse getScore(Long studentId, Long topicId) {
+    public ScoreResponse getScore(Long studentId, Long topicId)
+    {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         Long scorerId = user.getId();
 
-        log.debug("Getting score for student with ID: {} in topic with ID: {} by scorer with ID: {}", studentId, topicId, scorerId);
+        log.info("Getting score for student with ID: {} in topic with ID: {} by scorer with ID: {}", studentId, topicId, scorerId);
         Score fetchedScore = this.scoreRepository.findByStudent_IdAndScorer_IdAndTopic_TopicId(studentId, scorerId, topicId);
 
-        if(fetchedScore != null) {
+        if (fetchedScore != null)
+        {
             return new ScoreResponse(fetchedScore.getScoreValue(), true);
-        }
-        else {
+        } else
+        {
             return new ScoreResponse(0L, false);
         }
     }
 
-    public Score addScore(ScoreModel score) {
-        if(getScore(score.getStudentId(), score.getTopicId()).getPresent()) {
+    public Score addScore(ScoreModel score)
+    {
+        if (getScore(score.getStudentId(), score.getTopicId()).getPresent())
+        {
             throw new InvalidAccessException("Score already present");
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
-        log.debug("Adding score for student with ID: {} in topic with ID: {} by scorer with ID: {}", score.getStudentId(), score.getTopicId(), user.getId());
+        log.info("Adding score for student with ID: {} in topic with ID: {} by scorer with ID: {}", score.getStudentId(), score.getTopicId(), user.getId());
 //        System.out.println("user = " + user);
 //        System.out.println("(this.userRepository.findById(score.getScorerId()).get() = " + this.userRepository.findById(score.getScorerId()).get());
 //        System.out.println("this.groupRepository.findById(score.getGroupId()).get() = " + this.groupRepository.findById(score.getGroupId()).get());
