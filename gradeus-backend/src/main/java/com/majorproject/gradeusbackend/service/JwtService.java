@@ -95,7 +95,7 @@ public class JwtService
 
     private Key getSignInKey()
     {
-        log.info("Decoding secret key: {}", SECRET_KEY);
+        // log.info("Decoding secret key: {}", SECRET_KEY);
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
