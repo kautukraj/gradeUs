@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" style="background-color: blue;">
   <span>Grade Us</span>
   <div class="spacer"></div>
   <a mat-button [routerLink]="globalService.currentCredentials ? (globalService.currentCredentials.role == 'INSTRUCTOR'? '/instructor-dashboard' : '/student-dashboard') : '/'"> Home</a>
