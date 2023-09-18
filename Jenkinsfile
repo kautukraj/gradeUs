@@ -60,11 +60,11 @@ pipeline {
             }
         }
         
-        // stage('Ansible Deployment') {
-        //     steps {
-        //       ansiblePlaybook installation: 'Ansible', playbook: 'deploy-playbook.yml'
-        //     }
-        // }
+        stage('Ansible Deployment') {
+            steps {
+              ansiblePlaybook installation: 'Ansible', playbook: 'deploy-playbook.yml'
+            }
+        }
 
         stage('Deploying logstash and filebeats inside the kubernetes cluster') {
             steps {
